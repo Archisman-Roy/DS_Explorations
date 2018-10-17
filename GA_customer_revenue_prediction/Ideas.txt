@@ -1,0 +1,3 @@
+Add old/new customers
+Remove date fields
+Check for columns which I am remaving as constants - Their NA distribution could be informative
