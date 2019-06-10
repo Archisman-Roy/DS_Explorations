@@ -1,6 +1,0 @@
-https://www.dataquest.io/blog/jupyter-notebook-tips-tricks-shortcuts/
-
-https://www.kaggle.com/yuliagm/how-to-work-with-big-datasets-on-16g-ram-dask
-
-https://stackoverflow.com/questions/33642951/python-using-pandas-structures-with-large-csviterate-and-chunksize
-
