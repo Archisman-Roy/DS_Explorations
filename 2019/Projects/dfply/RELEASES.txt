@@ -1,0 +1,126 @@
+v0.3.3
+- Hotfix for parsing left_on and right_on
+
+TODO: Need to figure out fix to the inversion of symbol issue. Somewhat complicated.
+
+v0.3.2
+Various PRs added fixing bugs, etc.
+
+v0.3.1
+This update is almost solely the pull requests by @bleearmstrong that were sitting
+in the repo waiting. There were some minor bug-fixes and changes too.
+
+- `select_if` and `drop_if` are now available to perform selection according to a function
+- `mutate_if` allows variable creation if a criterion function is evaluated as True
+- `row_number` window function is available (same as rank(method='first'))
+- `distinct` can take no arguments, making it equivalent to `drop_duplicates` with no arguments
+
+v0.3.0
+Lots and lots of big changes here. Total reworking of the internal functionality.
+The good news is that it should (basically) work the same as before, but
+hopefully better. Obviously keep in mind that this is still beta and there will
+be plenty of bugs to work out on the horizon, but the preexisting tests pass for now...
+There is not backward compatibility with old versions as the decorator names
+have changed, but again, the functionality is otherwise the same.
+
+Some major things (see readme for details):
+- Moved entirely to python 3 support only. It may still work in python 2, but don't count on it.
+- pandas-ply is no longer required; It was brittle and so rolled my own stuff.
+- Selection "subfunctions" are now working and the selection functions have been changed in light of this.
+
+
+v0.2.4
+- Bug fixed in semi-join and anti-join
+- top_n added
+
+v0.2.3
+Inplace piping added using the `>>=` operator. The `pipe` decorator internals
+have been changed to make this possible through the addition of an `__rshift__`
+implementation and chaining pipes together until evaluated against a
+DataFrame.
+
+
+v0.2.2
+- Added docstrings to functions and classes.
+- Added the `case_when` function.
+- Fixed `arrange` to work with symbolic functions like `desc` in the function
+  call.
+- Added `cumany` and `cumall` window functions.
+- Added `if_else` function.
+- Added `na_if` function.
+- Added `percent_rank` function.
+- Reorganization of decorator functions (better subclassing).
+
+
+v0.2.1
+Fixed an issue with the way the decorators were structured, particularly
+the @make_symbolic, that would cause problems with returning Call objects
+that would not evaluate properly. Hopefully this is now resolved.
+
+The "coalesce" function was added from dplyr.
+
+Some code was moved from base.py to the new vector.py file. The vector.py
+file now contains functions that specifically perform operations on
+series or numpy arrays (such as coalesce, desc, etc.). Test files have been
+reorganized accordingly.
+
+
+v0.2.0
+This release now introduces the @make_symbolic decorator, which can wrap
+functions to allow them to evaluate later. This is particularly (and perhaps
+only) useful when you embed functions as arguments to other functions. For
+example the summary and window functions.
+
+The code for the symbolic handling decorators has been reworked. They now
+inherit from a common class since they shared patterns in their code.
+
+- @make_symbolic decorator
+- README updates
+- desc() and order_series_by() functions
+- re-imagining of the code for @symbolic_evaluation, @symbolic_reference
+  (the functionality remains unchanged)
+- window and summary functions, along with their tests, have been moved around
+  to other files.
+
+
+v0.1.10
+- `separate` and `unite` functions added.
+- Summary functions added for series operations.
+- README improved dramatically.
+- Function docstrings added to more functions (still not all).
+
+v0.1.9
+Moved unit tests into individual files that reflect the categories of the
+functions/features they are testing. Some small bugs have been fixed as well.
+
+v0.1.8
+The pipe decorator now copies the dataframe upon each chained function, along
+with the `_grouped_by` attribute, if any. Before, operations with the pipe
+functions were modifying the original dataframe (such as `mutate`).
+
+v0.1.7
+Restructuring of package to include `diamonds.csv` with pip installation
+and require `six` and `pandas-ply` rather than come pre-packaged with them.
+
+v0.1.6
+Added window functions:
+`dense_rank`
+`min_rank`
+`cumsum`
+`cummean`
+`cummax`
+`cummin`
+`cumprod`
+
+
+v0.1.5
+dplyr set operations added thanks to bleearmstrong.
+
+`df >> union(other)`
+Rows that appear in either `df` or `other`.
+
+`df >> intersect(other)`
+Rows that appear in both `df` and `other`
+
+`df >> set_diff(other)`
+Rows that appear in `df` but not `other`.
